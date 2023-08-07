@@ -1,2 +1,2 @@
 #!/bin/bash
-find -name="*.js" -minddepth 1 -delete
+find -name="*.js" type -f -delete
