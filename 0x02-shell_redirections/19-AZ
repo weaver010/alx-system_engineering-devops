@@ -1,0 +1,2 @@
+#!/bin/bash
+egrep "A | c" | tr A Z | tr c e 
