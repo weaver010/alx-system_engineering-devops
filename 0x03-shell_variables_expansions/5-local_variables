@@ -1,2 +1,2 @@
 #!/bin/bash
-set| tr ":" "\n"|sort|grep -v "$(printenv)"
+set | grep -v "$(printenv)"
