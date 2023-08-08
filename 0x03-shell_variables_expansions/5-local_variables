@@ -1,0 +1,2 @@
+#!/bin/bash
+set| tr ":" "\n"|sort|grep -v "$(printenv|sort)"
