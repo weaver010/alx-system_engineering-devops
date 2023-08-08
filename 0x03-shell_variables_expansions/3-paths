@@ -1,2 +1,2 @@
 #!/bin/bash
-rev | cut -d ":" -f 1|cd   | find   -type d | wc -l
+echo $PATH | tr ":" "/"| find -type d|wc -l
