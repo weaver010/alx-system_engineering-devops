@@ -1,2 +1,2 @@
 #!/bin/bash
-ROT13 $quote
+rot13 $quote
