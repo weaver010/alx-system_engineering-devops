@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+#Configure Nginx so that its HTTP response contains a custom header
 echo -e "Updating and doing some minor checks...\n"
 
 function install() {
