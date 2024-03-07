@@ -1,0 +1,32 @@
+defaults
+        log     global
+        mode    http
+        option  httplog
+        option  dontlognull
+        timeout connect 5000
+        timeout client  50000
+        timeout server  50000
+        errorfile 400 /etc/haproxy/errors/400.http
+        errorfile 403 /etc/haproxy/errors/403.http
+        errorfile 408 /etc/haproxy/errors/408.http
+        errorfile 500 /etc/haproxy/errors/500.http
+        errorfile 502 /etc/haproxy/errors/502.http
+        errorfile 503 /etc/haproxy/errors/503.http
+        errorfile 504 /etc/haproxy/errors/504.http
+
+frontend  tech-space-frontend
+        bind *:80
+        mode http
+        http-request redirect scheme https code 301 unless { ssl_fc }
+        http-request set-header X_Forwarded-Proto http
+        default_backend   tech-space-backend
+
+frontend  tech-space-frontend-https
+        bind *:443 ssl crt /etc/haproxy/certs/ tech-space.tech.pem
+        http-request set-header X-Forwarded-Proto https
+        default_backend  tech-space-backend
+
+backend  tech-space-backend
+        balance roundrobin
+        server 151666-web-01 54.87.160.77:80 check
+        server 151666-web-02 72.44.33.131:80 check
