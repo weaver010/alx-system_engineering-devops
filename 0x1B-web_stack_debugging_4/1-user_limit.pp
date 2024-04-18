@@ -1,13 +1,15 @@
-# web stack 
-
-# Increase hard file
-exec { 'increase-hard-file-limit-for-holberton-user':
-  command => 'sed -i "/holberton hard/s/5/50000/" /etc/security/limits.conf',
-  path    => '/usr/local/bin/:/bin/'
+# Script that fix the limits for user holberton
+exec { 'userlimit':
+  command  => "sed -i 's/holberton hard nofile 4/holberton hard nofile 65536/g' /etc/security/limits.conf",
+  provider => shell,
 }
 
-# Increase soft
-exec { 'increase-soft-file-limit-for-holberton-user':
-  command => 'sed -i "/holberton soft/s/4/50000/" /etc/security/limits.conf',
-  path    => '/usr/local/bin/:/bin/'
+-> exec { 'userlimit2':
+  command  => "sed -i 's/holberton soft nofile 5/holberton soft nofile 65536/g' /etc/security/limits.conf",
+  provider => shell,
+}
+
+-> exec { 'restart':
+  command  => 'sysctl -p',
+  provider => shell,
 }
